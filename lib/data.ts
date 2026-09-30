@@ -1,5 +1,6 @@
 import { env } from "cloudflare:workers";
 import { defaultCopy, firstEvent, type SolarisEvent } from "./content";
+import { initialPartners } from "./partners";
 
 export type MediaItem = { id: string; event_slug: string; object_key: string; caption: string; credit: string; sort_order: number; approved: number };
 export type Partner = { id: string; name: string; event_slug: string | null; website: string | null; logo_key: string | null; approved: number; sort_order: number };
@@ -38,7 +39,36 @@ export async function getMedia(eventSlug: string, includeDrafts = false): Promis
 }
 
 export async function getPartners(includeDrafts = false): Promise<Partner[]> {
-  try { const q = includeDrafts ? "SELECT * FROM partners ORDER BY sort_order, name" : "SELECT * FROM partners WHERE approved = 1 ORDER BY sort_order, name"; return (await db().prepare(q).all<Partner>()).results; } catch { return []; }
+  try {
+    if (env.PUBLIC_LAUNCH_READY !== "1") await seedInitialPartners();
+    const q = includeDrafts ? "SELECT * FROM partners ORDER BY sort_order, name" : "SELECT * FROM partners WHERE approved = 1 ORDER BY sort_order, name";
+    return (await db().prepare(q).all<Partner>()).results;
+  } catch {
+    return env.PUBLIC_LAUNCH_READY !== "1" ? initialPartners.map((p) => ({ ...p, event_slug: firstEvent.slug, website: null, approved: 0 })) : [];
+  }
+}
+
+let partnerSeedAttempted = false;
+
+async function seedInitialPartners() {
+  if (partnerSeedAttempted) return;
+  partnerSeedAttempted = true;
+  const database = db();
+  const marker = await database.prepare("SELECT value FROM site_copy WHERE key = ? AND locale = 'hu'").bind("partner_catalog_seed_v1").first<{ value: string }>();
+  if (marker) return;
+  const existing = (await database.prepare("SELECT id, name, logo_key FROM partners").all<{ id: string; name: string; logo_key: string | null }>()).results;
+  const normalize = (name: string) => name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  for (const partner of initialPartners) {
+    const match = existing.find((item) => normalize(item.name) === normalize(partner.name) || (partner.name === "Athos" && normalize(item.name).startsWith("athos")));
+    if (match) {
+      if (!match.logo_key && partner.logo_key) await database.prepare("UPDATE partners SET logo_key = ? WHERE id = ?").bind(partner.logo_key, match.id).run();
+    } else {
+      await database.prepare("INSERT OR IGNORE INTO partners (id, name, event_slug, website, logo_key, approved, sort_order) VALUES (?, ?, ?, NULL, ?, 0, ?)")
+        .bind(partner.id, partner.name, firstEvent.slug, partner.logo_key, partner.sort_order).run();
+    }
+  }
+  await database.prepare("INSERT OR IGNORE INTO site_copy (key, locale, value, updated_at) VALUES (?, 'hu', '1', ?)")
+    .bind("partner_catalog_seed_v1", new Date().toISOString()).run();
 }
 
 export async function getVideos(eventSlug: string, includeDrafts = false): Promise<VideoLink[]> {

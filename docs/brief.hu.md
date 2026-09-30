@@ -12,7 +12,7 @@ A Solaris Community az ernyőmárka. Egy eseménynapon belül a Cycling a közö
 
 A meglévő Solaris arculat logóit, napszimbólumait, narancs és arany színeit, erős tipográfiáját és szemcsés fényhatásait használjuk. A Neue Haas webes licencének rendezéséig Inter szerepel az oldalon.
 
-A kezdőoldal görgetésre változó nyitánya Community → Cycling → Monarch sorrendben követi a napot. SVG/CSS-rétegek, fény és tipográfia adják a mozgást, csökkentett mozgásnál egyszerűbb átmenetekkel. A belső oldalak nyugodtabbak.
+A kezdőoldal időzített nyitánya Community → Cycling → Monarch sorrendben követi a napot. SVG/CSS-rétegek, fény és tipográfia adják a mozgást, csökkentett mozgásnál egyszerűbb átmenetekkel. A belső oldalak nyugodtabbak.
 
 A [Horizon](https://21st.dev/@lovesickfromthe6ix/components/horizon-hero-section) a nyitány ritmusához adott referenciát. A [Dixor](https://21st.dev/@validtheme/templates/dixor-creative-digital-agency-react) a vélemények és a partnerlogók elrendezésének elvéhez adott inspirációt. A felület saját Solaris-megvalósítás. Idézet csak valódi, jóváhagyott visszajelzésből jelenhet meg; eseményfotók felhasználása is jóváhagyáshoz kötött.
 

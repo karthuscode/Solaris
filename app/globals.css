@@ -24,3 +24,150 @@
 .story-sticky:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,rgba(17,17,14,.88) 0%,rgba(17,17,14,.62) 37%,rgba(17,17,14,.08) 73%,transparent 100%)}.story-content{z-index:2}.story-sun{width:min(49vw,580px);right:-8vw}
 @media(max-width:900px){.story-sun{width:62vw;right:-19vw}}
 @media(max-width:650px){.story-sun{width:80vw;right:-23vw}.story-sticky:before{background:linear-gradient(0deg,rgba(17,17,14,.87),rgba(17,17,14,.28) 54%,transparent 85%)}}
+
+/* Solaris day: a single timed sunrise, sunset and final chapter. */
+.story-hero{height:calc(100svh - 78px);min-height:580px}
+.story-sticky{position:relative;height:100%;min-height:0;background:#11110e}
+.story-sticky:before{z-index:0;background:linear-gradient(90deg,rgba(17,17,14,.89),rgba(17,17,14,.54) 42%,rgba(17,17,14,.02) 85%)}
+.story-sky{position:absolute;inset:0;z-index:-3;pointer-events:none;will-change:opacity}
+.story-sky--day{background:radial-gradient(ellipse at 70% 70%,#e46a1d 0%,#79401c 38%,#211914 78%);animation:hero-day 7s linear both}
+.story-sky--dusk{background:radial-gradient(ellipse at 78% 80%,#9b3c1e 0%,#492116 40%,#15120f 78%);animation:hero-dusk 7s linear both}
+.story-glow{z-index:-2;width:min(74vw,970px);right:auto;left:50%;top:50%;background:radial-gradient(circle,#ffc247b8 0%,#f7712580 29%,#e64d1832 52%,transparent 70%);will-change:transform;animation:hero-glow 7s linear both}
+.story-orbit{z-index:-2;right:-10vw;top:10%;opacity:.7;animation:hero-orbit 7s ease-in-out both}
+.story-horizon{position:absolute;z-index:-2;left:0;right:0;top:77%;height:1px;background:linear-gradient(90deg,transparent,#fdbb51aa 40%,#fff1c388 75%,transparent);box-shadow:0 0 65px 8px #fc7b2640;pointer-events:none}
+.story-sun-stage{position:absolute;z-index:-1;left:50%;top:50%;width:min(49vw,620px);aspect-ratio:1;will-change:transform;pointer-events:none;animation:hero-sun 7s linear both}
+.story-sun-image{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;will-change:opacity}
+.story-sun-image--cycling{animation:hero-cycling 7s linear both}
+.story-sun-image--monarch{animation:hero-monarch 7s linear both}
+.story-content{z-index:2;will-change:opacity,transform;animation-duration:7s;animation-timing-function:linear;animation-fill-mode:both}
+.story-content--0{animation-name:hero-copy-first}
+.story-content--1{animation-name:hero-copy-second}
+.story-content--2{animation-name:hero-copy-third}
+.story-content[data-active="false"]{pointer-events:none}
+.story-topline,.story-bottom{z-index:2}
+.story-progress i{width:100%;transform-origin:left;will-change:transform;animation:hero-progress 7s linear both}
+.story-playback{justify-self:end;padding:8px 0;border:0;background:none;color:var(--paper);font-size:.68rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+.story-playback:hover,.story-playback:focus-visible{color:var(--gold)}
+.story-playback:focus-visible{outline:2px solid var(--gold);outline-offset:5px}
+.story-sticky[data-paused="true"] :is(.story-sky,.story-glow,.story-orbit,.story-sun-stage,.story-sun-image,.story-content,.story-progress i){animation-play-state:paused}
+@keyframes hero-sun{
+  0%{transform:translate3d(18vw,63vh,0) translate(-50%,-50%) scale(.85);animation-timing-function:cubic-bezier(.42,0,.58,1)}
+  43%{transform:translate3d(25vw,-18vh,0) translate(-50%,-50%) scale(1);animation-timing-function:cubic-bezier(.42,0,.58,1)}
+  92%,100%{transform:translate3d(30vw,63vh,0) translate(-50%,-50%) scale(.85)}
+}
+@keyframes hero-glow{
+  0%{transform:translate3d(18vw,63vh,0) translate(-50%,-50%) scale(1.05);opacity:.55;animation-timing-function:cubic-bezier(.42,0,.58,1)}
+  43%{transform:translate3d(25vw,-18vh,0) translate(-50%,-50%) scale(1.2);opacity:1;animation-timing-function:cubic-bezier(.42,0,.58,1)}
+  92%,100%{transform:translate3d(30vw,63vh,0) translate(-50%,-50%) scale(1);opacity:.35}
+}
+@keyframes hero-day{0%{opacity:0}43%,55%{opacity:1}92%,100%{opacity:.12}}
+@keyframes hero-dusk{0%,43%{opacity:0}82%{opacity:.85}100%{opacity:1}}
+@keyframes hero-orbit{from{transform:rotate(0)}to{transform:rotate(85deg)}}
+@keyframes hero-cycling{0%,51%{opacity:1}68%,100%{opacity:0}}
+@keyframes hero-monarch{0%,51%{opacity:0}68%,100%{opacity:1}}
+@keyframes hero-copy-first{0%,39%{opacity:1;transform:translate3d(0,0,0)}45%{opacity:0;transform:translate3d(0,-14px,0)}100%{opacity:0;transform:translate3d(0,-14px,0)}}
+@keyframes hero-copy-second{0%,46%{opacity:0;transform:translate3d(0,16px,0)}52%,89%{opacity:1;transform:translate3d(0,0,0)}95%{opacity:0;transform:translate3d(0,-14px,0)}100%{opacity:0;transform:translate3d(0,-14px,0)}}
+@keyframes hero-copy-third{0%,95%{opacity:0;transform:translate3d(0,16px,0)}100%{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes hero-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* Home-page text enters after the section reaches the viewport. */
+.reveal-title .reveal-line{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+.reveal-title .reveal-line>span{display:block;transform:translate3d(0,0,0);transition:transform .7s cubic-bezier(.2,.78,.18,1)}
+.reveal-title .reveal-line:nth-child(2)>span{transition-delay:.09s}
+.reveal-block .reveal-float{opacity:1;transform:translate3d(0,0,0);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.78,.18,1);transition-delay:.23s}
+.reveal-block[data-ready="true"][data-visible="false"] .reveal-line>span{transform:translate3d(0,115%,0)}
+.reveal-block[data-ready="true"][data-visible="false"] .reveal-float{opacity:0;transform:translate3d(0,20px,0)}
+.reveal-block .reveal-float+.reveal-float{transition-delay:.31s}
+.manifesto-grid h2,.next-event h2,.partner-heading h2,.chapter-card h3{letter-spacing:-.035em}
+
+/* Complete partner catalogue with a seamless, draggable rail. */
+.partner-rail{position:relative;margin-top:8px}
+.partner-rail__viewport{overflow:hidden;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);cursor:grab;touch-action:pan-y;outline-offset:5px;user-select:none}
+.partner-rail__viewport:active{cursor:grabbing}
+.partner-rail__track,.partner-rail__group{display:flex;width:max-content}
+.partner-rail__track{will-change:transform}
+.partner-rail__item{width:clamp(220px,23vw,320px);height:190px;flex:none;display:flex;align-items:center;justify-content:center;padding:22px;border-right:1px solid var(--ink)}
+.partner-rail__item img{display:block;max-width:88%;max-height:135px;width:auto;height:auto;object-fit:contain;pointer-events:none}
+.partner-rail__item--wordmark span{font-size:clamp(2.8rem,4vw,4.4rem);font-weight:900;line-height:.9;letter-spacing:-.09em;text-transform:uppercase}
+.partner-rail__controls{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+.partner-rail__controls button{width:44px;height:44px;border:1px solid var(--ink);border-radius:50%;background:transparent;color:var(--ink);font-size:1.3rem;cursor:pointer}
+.partner-rail__controls button:hover,.partner-rail__controls button:focus-visible{background:var(--ink);color:var(--cream)}
+.partner-wordmark{font-size:clamp(1.6rem,2.5vw,2.8rem);font-weight:900;letter-spacing:-.07em;text-transform:uppercase}
+
+/* Inner pages retain the editorial grid while borrowing Solaris light and marks. */
+.events-inner-hero,.about-inner-hero,.event-hero--branded{position:relative;isolation:isolate;overflow:hidden}
+.events-inner-hero:before,.about-inner-hero:before,.event-hero--branded:before{content:"";position:absolute;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(circle at 78% 43%,#ffbf173d,transparent 35%)}
+.events-inner-hero:after,.about-inner-hero:after,.event-hero--branded:after{content:"";position:absolute;z-index:-1;right:-5%;top:-24%;width:min(53vw,680px);aspect-ratio:1;background:url('/brand/cycling-sun.png') center/contain no-repeat;opacity:.12;pointer-events:none;animation:ambient-sun 18s ease-in-out infinite alternate}
+.about-inner-hero:after{right:0;top:-12%;width:min(48vw,620px);opacity:.15}
+.event-hero--branded:after{right:1%;top:-32%;opacity:.15}
+.event-list--single{grid-template-columns:1fr}
+.event-tile{position:relative;isolation:isolate;overflow:hidden;transition:transform .35s ease,box-shadow .35s ease}
+.event-tile>*{position:relative;z-index:1}
+.event-tile:is(a):hover{transform:translateY(-5px);box-shadow:0 20px 35px #19150b1b}
+.event-tile__body{max-width:720px}
+.event-list--single .event-tile{min-height:390px}
+.event-tile--past:before,.event-tile--upcoming:before{content:"";position:absolute;z-index:0;right:-6%;top:-38%;width:min(45vw,560px);aspect-ratio:1;background:url('/brand/cycling-sun.png') center/contain no-repeat;opacity:.2;mix-blend-mode:multiply;pointer-events:none;animation:ambient-sun 20s ease-in-out infinite alternate}
+.event-tile--past:after,.event-tile--upcoming:after{content:"";position:absolute;z-index:0;right:9%;bottom:-55%;width:55%;aspect-ratio:1;background:radial-gradient(circle,#fff4b177,transparent 68%);pointer-events:none;animation:ambient-glow 9s ease-in-out infinite alternate}
+.event-tile.pending:before{content:"";position:absolute;z-index:0;right:-8%;top:-45%;width:min(50vw,610px);aspect-ratio:1;background:url('/brand/monarch-sun.png') center/contain no-repeat;opacity:.13;pointer-events:none;animation:ambient-sun 22s ease-in-out infinite alternate}
+.event-tile.pending:after{content:"";position:absolute;z-index:0;right:7%;bottom:-60%;width:50%;aspect-ratio:1;background:radial-gradient(circle,#ff8d3466,transparent 66%);pointer-events:none;animation:ambient-glow 8s ease-in-out infinite alternate}
+.about-story{position:relative;isolation:isolate;overflow:hidden}
+.about-story:before{content:"";position:absolute;z-index:-1;right:-8%;bottom:-62%;width:min(50vw,620px);aspect-ratio:1;border:1px solid #e97a2944;border-radius:50%;box-shadow:0 0 0 60px #f4b51b0b,0 0 0 120px #f46e1008;pointer-events:none}
+.about-chapters .timeline-card{position:relative;isolation:isolate;overflow:hidden}
+.about-chapters .timeline-card:before{content:"";position:absolute;z-index:-1;right:-14%;top:-37%;width:67%;aspect-ratio:1;background:url('/brand/cycling-sun.png') center/contain no-repeat;opacity:.13;pointer-events:none;animation:ambient-sun 20s ease-in-out infinite alternate}
+.about-chapters .timeline-card.monarch:before{background-image:url('/brand/monarch-sun.png');opacity:.17}
+.about-chapters .timeline-card>*{position:relative;z-index:1}
+.about-invite{background:radial-gradient(circle at 86% 80%,#ffbf1729,transparent 27%),var(--cream)}
+@keyframes ambient-sun{from{transform:translate3d(0,10px,0) rotate(-9deg)}to{transform:translate3d(-14px,-12px,0) rotate(7deg)}}
+@keyframes ambient-glow{from{opacity:.5;transform:scale(.94)}to{opacity:1;transform:scale(1.08)}}
+
+@media(max-width:900px){
+  .story-sun-stage{width:min(63vw,600px)}
+  .manifesto-grid,.next-event-inner,.content-grid,.event-list,.day-timeline{grid-template-columns:1fr}
+  .manifesto-grid h2,.next-event h2,.partner-heading h2{letter-spacing:-.035em}
+  .manifesto-grid{gap:24px}
+  .chapter-grid{grid-template-columns:1fr}
+  .events-inner-hero:after,.about-inner-hero:after{width:60vw;right:-14%;top:0}
+  .event-tile--past:before,.event-tile.pending:before{width:56vw;right:-14%}
+}
+@media(max-width:650px){
+  .story-hero{height:calc(100svh - 67px)}
+  .story-sticky{min-height:0}
+  .story-bottom{grid-template-columns:1fr auto}
+  .story-bottom>span:first-child{display:none}
+  .story-sticky:before{background:linear-gradient(0deg,rgba(17,17,14,.91),rgba(17,17,14,.36) 50%,transparent 84%)}
+  .story-sun-stage{width:83vw}
+  .story-content{max-width:none;right:22px;bottom:112px}
+  .story-content{isolation:isolate}
+  .story-content:before{content:"";position:absolute;z-index:-1;inset:-22px -18px -28px -18px;background:linear-gradient(90deg,#11110ee8 0%,#11110ec7 64%,#11110e66 100%);filter:blur(14px);pointer-events:none}
+  .story-content h1{text-shadow:0 4px 18px #11110ec7}
+  .manifesto-grid h2,.next-event h2,.partner-heading h2{font-size:clamp(2.4rem,9vw,4.4rem)}
+  .story-horizon{top:67%}
+  .partner-rail__item{width:220px;height:150px;padding:16px}
+  .partner-rail__item img{max-height:110px}
+  .partner-rail__item--wordmark span{font-size:3rem}
+  .event-list--single .event-tile{min-height:400px}
+  .event-meta{flex-direction:column;gap:6px}
+  .event-tile--past:before,.event-tile.pending:before{width:84vw;right:-28%;top:-6%;opacity:.13}
+  .event-tile__body{max-width:100%}
+  .events-inner-hero:after,.about-inner-hero:after{width:83vw;right:-33%;top:2%;opacity:.08}
+  .about-chapters .timeline-card:before{width:83%;right:-27%;top:-19%}
+}
+@media(prefers-reduced-motion:reduce){
+  .story-hero{height:auto}
+  .story-sticky{position:relative;height:calc(100svh - 67px);min-height:560px}
+  .story-sticky :is(.story-sky,.story-glow,.story-orbit,.story-sun-stage,.story-sun-image,.story-content,.story-progress i){animation:none!important}
+  .story-sky,.story-glow,.story-orbit,.story-horizon{display:none}
+  .story-sun-stage{transform:translate3d(12vw,-13vh,0) translate(-50%,-50%) scale(.9)}
+  .story-sun-image--cycling{opacity:1}
+  .story-sun-image--monarch{opacity:0}
+  .story-content--0{opacity:1;transform:none}
+  .story-content--1,.story-content--2{display:none}
+  .reveal-block .reveal-line>span,.reveal-block[data-ready="true"][data-visible="false"] .reveal-line>span{transform:none}
+  .reveal-block .reveal-float,.reveal-block[data-ready="true"][data-visible="false"] .reveal-float{opacity:1;transform:none}
+  .partner-rail__viewport{overflow-x:auto;cursor:auto;touch-action:auto}
+  .partner-rail__track{transform:none!important;will-change:auto}
+  .partner-rail__copy{display:none}
+  .events-inner-hero:after,.about-inner-hero:after,.event-hero--branded:after,.event-tile:before,.event-tile:after,.about-chapters .timeline-card:before{animation:none!important}
+  .event-tile:is(a):hover{transform:none}
+  .chapter-card:hover img{transform:translateX(-50%)}
+}

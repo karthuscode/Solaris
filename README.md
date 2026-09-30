@@ -8,18 +8,18 @@ A community website that turns an active day into shared stories. Built around S
 
 ## One day. Three chapters.
 
-Community → Cycling → Monarch. A scroll-led opening moves from belonging to shared movement, then music and conversation. Warm light, sun symbols and bold type carry the Solaris identity across desktop and mobile.
+Community → Cycling → Monarch. A timed sunrise and sunset moves through the three chapters in about seven seconds, with pause and replay controls. Warm light, sun symbols and bold type carry the Solaris identity across desktop and mobile.
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/showcase/desktop-cycling.jpg" alt="The Cycling chapter of the scroll story" /></td>
-    <td width="50%"><img src="docs/showcase/desktop-monarch.jpg" alt="The Monarch chapter of the scroll story" /></td>
+    <td width="50%"><img src="docs/showcase/desktop-cycling.jpg" alt="The Cycling chapter of the timed story" /></td>
+    <td width="50%"><img src="docs/showcase/desktop-monarch.jpg" alt="The Monarch chapter of the timed story" /></td>
   </tr>
 </table>
 
 ## Built to keep moving
 
-- Event pages, photo galleries, partner content and a single organizer workspace.
+- Event pages, photo galleries, a draggable rail of past partners and a single organizer workspace.
 - Email-only attendance intent, duplicate prevention, CSV exports and partner inquiries.
 - Responsive layouts, reduced-motion support and self-hosted Inter.
 - React · TypeScript · Vinext · Cloudflare D1 / R2 · Brevo.
@@ -33,7 +33,7 @@ Community → Cycling → Monarch. A scroll-led opening moves from belonging to 
 
 **Status:** private preview. Organizer email access, production email delivery, final content/privacy approval and a daily retention scheduler remain launch requirements. [Current status →](docs/status.md)
 
-[Private preview](https://solaris-community.karthuss.chatgpt.site/) · [Showcase](docs/showcase/) · [Architecture](docs/architecture.md) · [Local setup](docs/development.md) · [Project brief — HU](docs/brief.hu.md)
+[Private preview](https://solaris-community.karthuss.chatgpt.site/) · [Showcase](docs/showcase/) · [Local visual review — HU](docs/visual-refresh.hu.md) · [Architecture](docs/architecture.md) · [Local setup](docs/development.md) · [Project brief — HU](docs/brief.hu.md)
 
 ## Run locally
 

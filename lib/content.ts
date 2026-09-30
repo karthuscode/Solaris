@@ -19,8 +19,6 @@ export const defaultCopy: Record<string, string> = {
   about_intro: "Csíkszeredából induló közösség vagyunk. Mozgással, zenével és közös programokkal teremtünk alkalmat arra, hogy az emberek valóban találkozzanak.",
 };
 
-export const oldPartnerNames = ["MiMi", "Pekengo", "Beats In The Park", "Athos"];
-
 export function formatEventDate(value: string | null) {
   if (!value) return "Időpont szervezés alatt";
   return new Intl.DateTimeFormat("hu-HU", { timeZone: "Europe/Bucharest", year: "numeric", month: "long", day: "numeric" }).format(new Date(value));
@@ -28,4 +26,12 @@ export function formatEventDate(value: string | null) {
 
 export function canRsvp(event: SolarisEvent) {
   return event.status === "published" && event.rsvpOpen && !!event.startsAt && new Date(event.startsAt).getTime() > Date.now();
+}
+
+export function isUpcomingEvent(event: SolarisEvent) {
+  return !!event.startsAt && new Date(event.startsAt).getTime() >= Date.now();
+}
+
+export function isPastEvent(event: SolarisEvent) {
+  return !!event.startsAt && new Date(event.startsAt).getTime() < Date.now();
 }
