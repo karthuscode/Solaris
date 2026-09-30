@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1790764614218,
+      "tag": "0000_chubby_shard",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1790765320492,
+      "tag": "0001_yellow_obadiah_stane",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1790767486099,
+      "tag": "0002_strange_demogoblin",
+      "breakpoints": true
+    }
+  ]
+}

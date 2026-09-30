@@ -1,0 +1,7 @@
+"use client";
+import { useState } from "react";
+export default function RsvpForm({ slug }: { slug: string }) {
+  const [status, setStatus] = useState(""); const [busy, setBusy] = useState(false);
+  async function submit(e: React.FormEvent<HTMLFormElement>) { e.preventDefault(); setBusy(true); setStatus(""); const form = new FormData(e.currentTarget); try { const r = await fetch("/api/rsvp", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ slug, email: form.get("email"), website: form.get("website") }) }); const data = await r.json() as { message?: string }; setStatus(data.message || "Nem sikerült elküldeni. Próbáld újra később."); if (r.ok) e.currentTarget.reset(); } catch { setStatus("Kapcsolati hiba történt. Próbáld újra később."); } finally { setBusy(false); } }
+  return <form className="form-panel" onSubmit={submit}><label htmlFor="rsvp-email">E-mail-címed</label><input id="rsvp-email" name="email" type="email" autoComplete="email" required maxLength={254} placeholder="nev@pelda.hu" /><input className="honeypot" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" /><p className="form-help">Csak az eseményhez kapcsolódó visszaigazolást küldjük el. Ez nem hírlevél-feliratkozás.</p><button disabled={busy}>{busy ? "Küldés…" : "Jelzem, hogy jönnék"}</button>{status && <p role="status" className="form-status">{status}</p>}</form>;
+}
